@@ -31,6 +31,7 @@ import com.stormpath.sdk.oauth.OAuthClientCredentialsGrantRequestAuthentication;
 import com.stormpath.sdk.oauth.OAuthGrantRequestAuthenticationResult;
 import com.stormpath.sdk.oauth.OAuthPasswordGrantRequestAuthentication;
 import com.stormpath.sdk.oauth.OAuthRefreshTokenRequestAuthentication;
+import com.stormpath.sdk.oauth.OAuthRequests;
 import com.stormpath.sdk.oauth.OAuthStormpathSocialGrantRequestAuthentication;
 import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthentication;
 import com.stormpath.sdk.resource.ResourceException;
@@ -72,7 +73,6 @@ public class AccessTokenController extends AbstractController {
     private static final String STORMPATH_TOKEN_GRANT_TYPE = "stormpath_token";
     private static final String REFRESH_TOKEN_GRANT_TYPE = "refresh_token";
     private static final String GRANT_TYPE_PARAM_NAME = "grant_type";
-    private static final String AUTHORIZATION = "Authorization";
 
     private RefreshTokenResultFactory refreshTokenResultFactory;
     private RefreshTokenAuthenticationRequestFactory refreshTokenAuthenticationRequestFactory;
@@ -248,7 +248,10 @@ public class AccessTokenController extends AbstractController {
         try {
             Application app = getApplication(request);
             OAuthClientCredentialsGrantRequestAuthentication clientCredentialsGrantRequestAuthentication =
-                    new DefaultOAuthClientCredentialsGrantRequestAuthentication(authenticationRequest.getPrincipals(), authenticationRequest.getCredentials());
+                    OAuthRequests.OAUTH_CLIENT_CREDENTIALS_GRANT_REQUEST.builder()
+                            .setApiKeyId(authenticationRequest.getPrincipals())
+                            .setApiKeySecret(authenticationRequest.getCredentials())
+                            .build();
 
             authenticationResult = Authenticators.OAUTH_CLIENT_CREDENTIALS_GRANT_REQUEST_AUTHENTICATOR
                     .forApplication(app)
