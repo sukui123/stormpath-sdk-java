@@ -21,7 +21,6 @@ import com.stormpath.sdk.authc.AuthenticationResult;
 import com.stormpath.sdk.http.HttpMethod;
 import com.stormpath.sdk.impl.authc.DefaultBasicApiAuthenticationRequest;
 import com.stormpath.sdk.impl.authc.DefaultHttpServletRequestWrapper;
-import com.stormpath.sdk.impl.oauth.DefaultOAuthClientCredentialsGrantRequestAuthentication;
 import com.stormpath.sdk.impl.oauth.DefaultOAuthStormpathSocialGrantRequestAuthentication;
 import com.stormpath.sdk.impl.oauth.DefaultOAuthStormpathTokenGrantRequestAuthentication;
 import com.stormpath.sdk.lang.Assert;
@@ -323,7 +322,7 @@ public class AccessTokenController extends AbstractController {
         try {
 
             assertAuthorized(request, response);
-            String grantType = null;
+            String grantType;
 
             try {
                 grantType = request.getParameter(GRANT_TYPE_PARAM_NAME);

@@ -23,7 +23,7 @@ import com.stormpath.sdk.resource.Resource;
  *
  * @since 1.1.0
  */
-interface OAuthStormpathTokenGrantAuthenticationAttempt extends Resource {
+public interface OAuthStormpathTokenGrantAuthenticationAttempt extends Resource {
     /**
      * Method used to set the Authentication Grant Type that will be used for the token exchange request.
      * @param grantType the Authentication Grant Type that will be used for the token exchange request.

@@ -16,15 +16,15 @@
 package com.stormpath.sdk.oauth;
 
 /**
- * This class represents a request for Stormpath to authenticate an Account and exchange its ID Site token for a valid
- * OAuth 2.0 access token. Using stormpath_token grant type.
+ * This class represents a request for Stormpath to authenticate an Account and exchange a token for a valid
+ * OAuth 2.0 access token. Uses stormpath_token grant type.
  *
  * @since 1.1.0
  */
 public interface OAuthStormpathTokenGrantRequestAuthentication extends OAuthGrantRequestAuthentication {
     /**
-     * Returns the token provided by ID Site. This must be specified for a valid request.
-     * @return a String value with an ID Site token value.
+     * Returns the token provided. This must be specified for a valid request.
+     * @return a String value with the token value.
      */
     String getToken();
 }
