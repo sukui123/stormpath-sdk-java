@@ -24,7 +24,7 @@ import static org.testng.Assert.assertEquals
 import static org.testng.Assert.assertTrue
 
 /**
- * @since 1.1.0
+ * @since 1.2.0
  */
 class DefaultCreateOAuthStormpathTokenGrantAuthenticationAttemptTest {
 

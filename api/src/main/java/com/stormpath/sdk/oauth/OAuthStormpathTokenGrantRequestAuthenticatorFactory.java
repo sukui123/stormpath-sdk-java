@@ -13,17 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.stormpath.sdk.impl.oauth;
-
-import com.stormpath.sdk.oauth.GrantAuthenticationToken;
+package com.stormpath.sdk.oauth;
 
 /**
  * @since 1.2.0
  */
-public class DefaultOAuthStormpathTokenGrantRequestAuthenticationResultBuilder extends AbstractRefreshlessGrantRequestAuthenticationResultBuilder {
-
-    public DefaultOAuthStormpathTokenGrantRequestAuthenticationResultBuilder(GrantAuthenticationToken grantAuthenticationToken) {
-        super(grantAuthenticationToken);
-    }
-
+public interface OAuthStormpathTokenGrantRequestAuthenticatorFactory extends OAuthRequestAuthenticatorFactory<OAuthStormpathTokenGrantRequestAuthenticator> {
 }

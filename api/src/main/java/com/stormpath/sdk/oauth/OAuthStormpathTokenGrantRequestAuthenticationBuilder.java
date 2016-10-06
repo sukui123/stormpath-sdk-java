@@ -16,16 +16,17 @@
 package com.stormpath.sdk.oauth;
 
 /**
- * This class represents a request for Stormpath to authenticate an Account and exchange a token for a valid
- * OAuth 2.0 access token. Uses stormpath_token grant type.
+ * A JWT-specific {@link OAuthRequestAuthenticationBuilder}.
  *
- * @since 1.2.0
+ * @since 1.0.RC7
  */
-public interface OAuthStormpathTokenGrantRequestAuthentication extends OAuthGrantRequestAuthentication {
+public interface OAuthStormpathTokenGrantRequestAuthenticationBuilder extends OAuthRequestAuthenticationBuilder<OAuthStormpathTokenGrantRequestAuthentication> {
 
     /**
-     * Returns the token provided. This must be specified for a valid request.
-     * @return a String value with the token value.
+     * Setter for the jwt to be used in the {@link OAuthBearerRequestAuthentication} that this builder will construct.
+     *
+     * @param jwt the jwt to be used in the {@link OAuthBearerRequestAuthentication} that this builder will construct.
+     * @return this instance for method chaining.
      */
-    String getToken();
+    OAuthStormpathTokenGrantRequestAuthenticationBuilder setJwt(String jwt);
 }

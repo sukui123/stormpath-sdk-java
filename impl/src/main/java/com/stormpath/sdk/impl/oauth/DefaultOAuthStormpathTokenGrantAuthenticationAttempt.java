@@ -23,25 +23,27 @@ import com.stormpath.sdk.impl.resource.StringProperty;
 import java.util.Map;
 
 /**
- * @since 1.1.0
+ * @since 1.2.0
  */
 public class DefaultOAuthStormpathTokenGrantAuthenticationAttempt extends AbstractResource implements OAuthStormpathTokenGrantAuthenticationAttempt {
 
     static final StringProperty GRANT_TYPE = new StringProperty("grant_type");
     static final StringProperty TOKEN = new StringProperty("token");
 
+    private static final String STORMPATH_TOKEN = "stormpath_token";
+
     private static final Map<String, Property> PROPERTY_DESCRIPTORS = createPropertyDescriptorMap(GRANT_TYPE, TOKEN);
 
     public DefaultOAuthStormpathTokenGrantAuthenticationAttempt(InternalDataStore dataStore) {
         super(dataStore);
+        setGrantType(STORMPATH_TOKEN);
     }
 
     public DefaultOAuthStormpathTokenGrantAuthenticationAttempt(InternalDataStore dataStore, Map<String, Object> properties) {
         super(dataStore, properties);
     }
 
-    @Override
-    public void setGrantType(String grantType) {
+    protected void setGrantType(String grantType) {
         setProperty(GRANT_TYPE, grantType);
     }
 

@@ -16,7 +16,9 @@
 package com.stormpath.sdk.oauth;
 
 /**
- * @since 1.1.0
+ * Factory used to construct {@link IdSiteAuthenticationRequestBuilder} instances.
+ *
+ * @since 1.0.RC8.2
  */
-public interface OAuthStormpathTokenRequestAuthenticatorFactory extends OAuthRequestAuthenticatorFactory<OAuthStormpathTokenGrantRequestAuthenticator> {
+public interface OAuthStormpathTokenGrantRequestAuthenticationFactory extends OAuthRequestAuthenticationFactory<OAuthStormpathTokenGrantRequestAuthenticationBuilder> {
 }

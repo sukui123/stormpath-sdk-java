@@ -27,7 +27,7 @@ import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthentication;
 import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthenticator;
 
 /**
- * @since 1.1.0
+ * @since 1.2.0
  */
 public class DefaultOAuthStormpathTokenGrantRequestAuthenticator extends AbstractOAuthRequestAuthenticator implements OAuthStormpathTokenGrantRequestAuthenticator {
 
@@ -44,7 +44,6 @@ public class DefaultOAuthStormpathTokenGrantRequestAuthenticator extends Abstrac
         OAuthStormpathTokenGrantRequestAuthentication authentication = (OAuthStormpathTokenGrantRequestAuthentication) authenticationRequest;
 
         OAuthStormpathTokenGrantAuthenticationAttempt authenticationAttempt = new DefaultOAuthStormpathTokenGrantAuthenticationAttempt(dataStore);
-        authenticationAttempt.setGrantType(authentication.getGrantType());
         authenticationAttempt.setToken(authentication.getToken());
 
         HttpHeaders httpHeaders = new HttpHeaders();

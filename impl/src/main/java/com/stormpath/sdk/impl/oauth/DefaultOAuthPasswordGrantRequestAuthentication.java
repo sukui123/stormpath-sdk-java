@@ -61,4 +61,5 @@ public class DefaultOAuthPasswordGrantRequestAuthentication implements OAuthPass
     public String getGrantType() {
         return grant_type;
     }
+
 }

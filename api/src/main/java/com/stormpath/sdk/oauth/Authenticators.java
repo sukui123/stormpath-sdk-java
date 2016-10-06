@@ -134,7 +134,7 @@ public class Authenticators {
      *
      * @since 1.1.0
      */
-    public static final OAuthStormpathTokenRequestAuthenticatorFactory OAUTH_STORMPATH_TOKEN_GRANT_REQUEST_AUTHENTICATOR =
-            (OAuthStormpathTokenRequestAuthenticatorFactory) Classes.newInstance("com.stormpath.sdk.impl.oauth.DefaultOAuthStormpathTokenRequestAuthenticatorFactory");
+    public static final OAuthStormpathTokenGrantRequestAuthenticatorFactory OAUTH_STORMPATH_TOKEN_GRANT_REQUEST_AUTHENTICATOR =
+            (OAuthStormpathTokenGrantRequestAuthenticatorFactory) Classes.newInstance("com.stormpath.sdk.impl.oauth.DefaultOAuthStormpathTokenGrantRequestAuthenticatorFactory");
 }
 

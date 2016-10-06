@@ -24,9 +24,6 @@ import com.stormpath.sdk.oauth.IdSiteAuthenticationRequestFactory;
  */
 public class DefaultIdSiteAuthenticationRequestFactory implements IdSiteAuthenticationRequestFactory {
 
-    public DefaultIdSiteAuthenticationRequestFactory() {
-    }
-
     @Override
     public IdSiteAuthenticationRequestBuilder builder() {
         return (IdSiteAuthenticationRequestBuilder) Classes.newInstance("com.stormpath.sdk.impl.oauth.DefaultIdSiteAuthenticationRequestBuilder");

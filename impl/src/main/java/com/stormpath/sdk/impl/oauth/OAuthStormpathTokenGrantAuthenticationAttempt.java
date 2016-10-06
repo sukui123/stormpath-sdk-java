@@ -21,14 +21,9 @@ import com.stormpath.sdk.resource.Resource;
  * This class is used to wrap the information required to build a Stormpath Token Grant Authentication request,
  * required to exchange a ID Site token for an OAuth Token.
  *
- * @since 1.1.0
+ * @since 1.2.0
  */
 public interface OAuthStormpathTokenGrantAuthenticationAttempt extends Resource {
-    /**
-     * Method used to set the Authentication Grant Type that will be used for the token exchange request.
-     * @param grantType the Authentication Grant Type that will be used for the token exchange request.
-     */
-    void setGrantType(String grantType);
 
     /**
      * Method used to set the JWT Token from ID Site.

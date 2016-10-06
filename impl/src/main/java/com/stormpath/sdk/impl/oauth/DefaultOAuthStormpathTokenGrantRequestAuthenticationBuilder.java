@@ -17,29 +17,26 @@ package com.stormpath.sdk.impl.oauth;
 
 import com.stormpath.sdk.lang.Assert;
 import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthentication;
+import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthenticationBuilder;
 
 /**
- * @since 1.2.0
+ * @since 1.0.RC8.2
  */
-public class DefaultOAuthStormpathTokenGrantRequestAuthentication implements OAuthStormpathTokenGrantRequestAuthentication {
-
-    private final static String grant_type = "stormpath_token";
+public class DefaultOAuthStormpathTokenGrantRequestAuthenticationBuilder implements OAuthStormpathTokenGrantRequestAuthenticationBuilder {
 
     private String token;
 
-    public DefaultOAuthStormpathTokenGrantRequestAuthentication(String token) {
+    @Override
+    public OAuthStormpathTokenGrantRequestAuthenticationBuilder setJwt(String token) {
         Assert.hasText(token, "token cannot be null or empty.");
         this.token = token;
+        return this;
     }
 
     @Override
-    public String getToken() {
-        return token;
+    public OAuthStormpathTokenGrantRequestAuthentication build() {
+        Assert.state(this.token != null, "token has not been set. It is a required attribute.");
+        OAuthStormpathTokenGrantRequestAuthentication request = new DefaultOAuthStormpathTokenGrantRequestAuthentication(token);
+        return request;
     }
-
-    @Override
-    public String getGrantType() {
-        return grant_type;
-    }
-
 }

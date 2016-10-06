@@ -16,7 +16,21 @@
 package com.stormpath.sdk.oauth;
 
 /**
- * @since 1.1.0
+ * Interface denoting an Stormpath token-specific {@link OAuthRequestAuthenticator}. It is used to exchange Id Site credentials
+ * for a valid OAuth 2.0 token. For example:
+ * <pre>
+ * Application app = obtainApplication();
+ *
+ * IdSiteAuthenticationRequest exchangeRequest = <b>OAuthRequests.OAUTH_STORMPATH_TOKEN_AUTHENTICATION_REQUEST.builder()</b>
+ *      .setJwt(token)
+ *      .build();
+ *
+ * OAuthRequestAuthenticationResult result = Authenticators.OAUTH_STORMPATH_TOKEN_GRANT_REQUEST_AUTHENTICATOR
+ *       .forApplication(app)
+ *       .authenticate(exchangeRequest);
+ * </pre>
+ *
+ * @since 1.2.0
  */
 public interface OAuthStormpathTokenGrantRequestAuthenticator extends OAuthRequestAuthenticator<OAuthGrantRequestAuthenticationResult> {
 }

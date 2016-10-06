@@ -32,5 +32,6 @@ package com.stormpath.sdk.oauth;
  *
  * @since 1.0.RC8.2
  */
+@Deprecated
 public interface IdSiteAuthenticator extends OAuthRequestAuthenticator<OAuthGrantRequestAuthenticationResult> {
 }

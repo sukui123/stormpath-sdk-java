@@ -26,7 +26,6 @@ import com.stormpath.sdk.account.PasswordResetToken
 import com.stormpath.sdk.account.VerificationEmailRequest
 import com.stormpath.sdk.account.VerificationEmailRequestBuilder
 import com.stormpath.sdk.api.ApiKey
-import com.stormpath.sdk.api.ApiKeyOptions
 import com.stormpath.sdk.api.ApiKeys
 import com.stormpath.sdk.application.Application
 import com.stormpath.sdk.application.ApplicationAccountStoreMapping
@@ -54,13 +53,16 @@ import com.stormpath.sdk.lang.Strings
 import com.stormpath.sdk.mail.EmailStatus
 import com.stormpath.sdk.oauth.AccessToken
 import com.stormpath.sdk.oauth.Authenticators
+import com.stormpath.sdk.oauth.IdSiteAuthenticationRequest
 import com.stormpath.sdk.oauth.OAuthBearerRequestAuthentication
 import com.stormpath.sdk.oauth.OAuthBearerRequestAuthenticationResult
 import com.stormpath.sdk.oauth.OAuthClientCredentialsGrantRequestAuthentication
+import com.stormpath.sdk.oauth.OAuthGrantRequestAuthenticationResult
 import com.stormpath.sdk.oauth.OAuthRequests
 import com.stormpath.sdk.oauth.OAuthPolicy
 import com.stormpath.sdk.oauth.OAuthPasswordGrantRequestAuthentication
 import com.stormpath.sdk.oauth.OAuthRefreshTokenRequestAuthentication
+import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthentication
 import com.stormpath.sdk.organization.Organization
 import com.stormpath.sdk.organization.OrganizationStatus
 import com.stormpath.sdk.organization.Organizations
@@ -77,7 +79,7 @@ import io.jsonwebtoken.JwsHeader
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.apache.commons.codec.binary.Base64
-import org.testng.Assert
+import org.joda.time.DateTime
 import org.testng.annotations.Test
 
 import javax.servlet.http.HttpServletRequest
@@ -2051,5 +2053,51 @@ class ApplicationIT extends ClientIT {
         def result = samlCallbackHandler.accountResult
 
         assertFalse result.newAccount
+    }
+
+    /** @since 1.1.0 */
+    @Test
+    void testIDSiteToken() {
+
+        Application app = createTempApp()
+        def account = createTestAccount(app)
+
+        String jwt = Jwts.builder()
+                .setHeaderParam(JwsHeader.KEY_ID, client.getApiKey().getId())
+                .setSubject(account.getHref())
+                .setIssuedAt(new Date())
+                .setIssuer(app.getHref())
+                .setAudience(client.getApiKey().getId())
+                .setExpiration(DateTime.now().plusMinutes(1).toDate())
+                .claim("status", "AUTHENTICATED").signWith(SignatureAlgorithm.HS256, client.getApiKey().getSecret().getBytes("UTF-8")).compact();
+
+        IdSiteAuthenticationRequest request = OAuthRequests.IDSITE_AUTHENTICATION_REQUEST.builder().setToken(jwt).build();
+        def result = Authenticators.ID_SITE_AUTHENTICATOR.forApplication(app).authenticate(request)
+
+        assertNotNull result.getAccessTokenString()
+        assertNotNull result.getRefreshTokenString()
+    }
+
+    /** @since 1.1.0 */
+    @Test
+    void testStormpathToken() {
+
+        Application app = createTempApp()
+        def account = createTestAccount(app)
+
+        String jwt = Jwts.builder()
+                .setHeaderParam(JwsHeader.KEY_ID, client.getApiKey().getId())
+                .setSubject(account.getHref())
+                .setIssuedAt(new Date())
+                .setIssuer(app.getHref())
+                .setAudience(client.getApiKey().getId())
+                .setExpiration(DateTime.now().plusMinutes(1).toDate())
+                .claim("status", "AUTHENTICATED").signWith(SignatureAlgorithm.HS256, client.getApiKey().getSecret().getBytes("UTF-8")).compact();
+
+        OAuthStormpathTokenGrantRequestAuthentication request = OAuthRequests.OAUTH_STORMPATH_TOKEN_AUTHENTICATION_REQUEST.builder().setJwt(jwt).build();
+        OAuthGrantRequestAuthenticationResult result = Authenticators.OAUTH_STORMPATH_TOKEN_GRANT_REQUEST_AUTHENTICATOR.forApplication(app).authenticate(request)
+
+        assertNotNull result.getAccessTokenString()
+        assertNull result.getRefreshTokenString()
     }
 }

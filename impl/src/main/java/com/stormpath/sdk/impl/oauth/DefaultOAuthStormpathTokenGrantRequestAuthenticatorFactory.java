@@ -18,14 +18,16 @@ package com.stormpath.sdk.impl.oauth;
 import com.stormpath.sdk.application.Application;
 import com.stormpath.sdk.impl.application.DefaultApplication;
 import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthenticator;
-import com.stormpath.sdk.oauth.OAuthStormpathTokenRequestAuthenticatorFactory;
+import com.stormpath.sdk.oauth.OAuthStormpathTokenGrantRequestAuthenticatorFactory;
 
 /**
- * @since 1.1.0
+ * @since 1.2.0
  */
-public class DefaultOAuthStormpathTokenRequestAuthenticatorFactory implements OAuthStormpathTokenRequestAuthenticatorFactory {
+public class DefaultOAuthStormpathTokenGrantRequestAuthenticatorFactory implements OAuthStormpathTokenGrantRequestAuthenticatorFactory {
+
     @Override
     public OAuthStormpathTokenGrantRequestAuthenticator forApplication(Application application) {
         return ((DefaultApplication) application).createStormpathTokenGrantAuthenticator();
     }
+
 }
